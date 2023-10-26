@@ -102,3 +102,12 @@ body {
 .chat-button:hover {
     border: 2px solid #4CAF50; /* Green for ChatGPT chat */
 }
+
+.add-chat-button {
+    background-color: #00f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px;
+}

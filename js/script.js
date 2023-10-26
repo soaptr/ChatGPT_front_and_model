@@ -60,7 +60,7 @@ document.getElementById('send-button').addEventListener('click', () => {
     sendMessageAndUpdateHistory(activeChat, message, true);
     inputField.value = '';
     // Simulate ChatGPT's reply (you can replace this with your actual ChatGPT interaction)
-    const chatGPTReply = "ChatGPT: I am a response from ChatGPT.";
+    const chatGPTReply = "I am a response from ChatGPT.";
     sendMessageAndUpdateHistory(activeChat, chatGPTReply, false);
 });
 
@@ -79,13 +79,20 @@ document.getElementById('input-field').addEventListener('keydown', (event) => {
 
 
 // Function to add a new chat
-function addNewChat(chatName) {
+function addNewChatButton(chatName) {
     const chatList = document.querySelector('.chat-list');
     const chatButton = document.createElement('a');
     chatButton.href = '#';
     chatButton.className = 'chat-button';
     chatButton.textContent = chatName;
     chatList.appendChild(chatButton);
+
+    // Event listener to switch to the new chat when the chat button is clicked
+    chatButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        switchChat(chatButton, chatName);
+        activeChat = chatName;
+    });
 }
 
 // Define an object to store chat histories
@@ -114,9 +121,9 @@ function switchChat(chatButton, chatName) {
 }
 
 // Example of populating the chat list with initial demo chats
-addNewChat('Chat 1');
-addNewChat('Chat 2');
-addNewChat('Chat 3');
+addNewChatButton('Chat 1');
+addNewChatButton('Chat 2');
+addNewChatButton('Chat 3');
 
 // Example of switching to a chat and displaying chat history
 let activeChat = 'Chat 1'; // Set an initial active chat
@@ -128,4 +135,22 @@ chatButtons.forEach(button => {
         switchChat(button, button.textContent);
         activeChat = button.textContent; // Update the active chat
     });
+});
+
+// Event listener for the "Add New Chat" button
+document.getElementById('add-chat-button').addEventListener('click', () => {
+    // You can add your logic to create a new chat here
+    var currentdate = new Date();
+    var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+    const newChatName = datetime;
+    if (newChatName) {
+        addNewChatButton(newChatName);
+        switchChat(document.querySelector('.chat-button:last-child'), newChatName);
+        activeChat = newChatName;
+    }
 });
