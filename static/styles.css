@@ -1,0 +1,104 @@
+/* styles.css */
+
+body {
+    background-color: #333;
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    display: flex;
+    height: 100vh;
+}
+
+.chat-list {
+    width: 20%;
+    background-color: #222;
+    overflow-y: auto;
+}
+
+.chat-button {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: border 0.2s;
+}
+
+.chat-interface {
+    flex: 1;
+    background-color: #444;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-bubble {
+    background-color: #555;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    max-width: 70%;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.input-field {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background-color: #666;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.send-button {
+    background-color: #00f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Adjust the user message alignment to the right */
+.user-message {
+    background-color: #0074B3; /* Blue color for user messages */
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    max-width: 70%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Keep the ChatGPT message styles as is */
+.chatGPT-message {
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    max-width: 70%;
+}
+
+/* Modify the active chat button styles to match the colors */
+.active-chat-button {
+    border: 2px solid #0084FF; /* Blue for user chat */
+}
+
+.chat-button:hover {
+    border: 2px solid #4CAF50; /* Green for ChatGPT chat */
+}
