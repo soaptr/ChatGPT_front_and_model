@@ -120,15 +120,8 @@ function switchChat(chatButton, chatName) {
     }
 }
 
-// Example of populating the chat list with initial demo chats
-addNewChatButton('Chat 1');
-addNewChatButton('Chat 2');
-addNewChatButton('Chat 3');
-
 // Example of switching to a chat and displaying chat history
-let activeChat = 'Chat 1'; // Set an initial active chat
 const chatButtons = document.querySelectorAll('.chat-button');
-chatButtons[0].classList.add('active-chat-button');
 chatButtons.forEach(button => {
     button.addEventListener('click', (event) => {
         event.preventDefault();
@@ -137,11 +130,13 @@ chatButtons.forEach(button => {
     });
 });
 
+let id = 0;
+
 // Event listener for the "Add New Chat" button
 document.getElementById('add-chat-button').addEventListener('click', () => {
     // You can add your logic to create a new chat here
     var currentdate = new Date();
-    var datetime = currentdate.getDate() + "/"
+    var datetime = ++id + ". " + currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
                 + currentdate.getFullYear() + " "
                 + currentdate.getHours() + ":"
@@ -154,3 +149,5 @@ document.getElementById('add-chat-button').addEventListener('click', () => {
         activeChat = newChatName;
     }
 });
+
+document.getElementById('add-chat-button').click();
