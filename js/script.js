@@ -18,9 +18,9 @@ function updateChatGPTChat(reply) {
 
 // Function to send a message and update chat history
 function sendMessageAndUpdateHistory(chatName, message, isUser = false) {
-    if (message.trim() === '') {
-        return;
-    }
+//    if (message.trim() === '') {
+//        return;
+//    }
 
     // Add the message to the chat history
     if (!chatHistories[chatName]) {
@@ -41,9 +41,9 @@ function sendMessageAndUpdateHistory(chatName, message, isUser = false) {
 }
 
 function readHistory(chatName, message, isUser = false) {
-    if (message.trim() === '') {
-        return;
-    }
+//    if (message.trim() === '') {
+//        return;
+//    }
 
     // Update the chat interface
     if (isUser) {
@@ -53,15 +53,45 @@ function readHistory(chatName, message, isUser = false) {
     }
 }
 
+async function getGPTReply(message) {
+
+    const apiUrl = 'http://localhost:8000/process_message/';
+
+    return new Promise((resolve, reject) => {
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: message }),
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Response not okay');
+            }
+        })
+        .then(data => {
+            const responseText = data.response;
+            resolve(responseText); // Resolve the Promise with the response
+        })
+        .catch(error => {
+            reject(error); // Reject the Promise if there is an error
+        });
+    });
+
+}
+
 // Event listeners for sending messages using Enter key or Send button
 document.getElementById('send-button').addEventListener('click', () => {
     const inputField = document.getElementById('input-field');
     const message = inputField.value;
     sendMessageAndUpdateHistory(activeChat, message, true);
     inputField.value = '';
-    // Simulate ChatGPT's reply (you can replace this with your actual ChatGPT interaction)
-    const chatGPTReply = "I am a response from ChatGPT.";
-    sendMessageAndUpdateHistory(activeChat, chatGPTReply, false);
+    getGPTReply(message).then(resolve => {
+        sendMessageAndUpdateHistory(activeChat, resolve, false);
+    });
 });
 
 document.getElementById('input-field').addEventListener('keydown', (event) => {
@@ -71,9 +101,9 @@ document.getElementById('input-field').addEventListener('keydown', (event) => {
         const message = inputField.value;
         sendMessageAndUpdateHistory(activeChat, message, true);
         inputField.value = '';
-        // Simulate ChatGPT's reply (you can replace this with your actual ChatGPT interaction)
-        const chatGPTReply = "ChatGPT: I am a response from ChatGPT.";
-        sendMessageAndUpdateHistory(activeChat, chatGPTReply, false);
+        getGPTReply(message).then(resolve => {
+            sendMessageAndUpdateHistory(activeChat, resolve, false);
+        });
     }
 });
 
