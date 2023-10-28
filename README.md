@@ -8,3 +8,5 @@ pip install -r requirements.txt
 python chatGPT_API/app.py
 ```
 3. Open index.html and use it
+
+![Example](static/Example.png)
