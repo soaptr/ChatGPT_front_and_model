@@ -1,0 +1,1 @@
+# ChatGPT_front_and_model
